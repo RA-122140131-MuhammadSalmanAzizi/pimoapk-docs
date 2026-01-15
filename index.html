@@ -1,88 +1,439 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dokumentasi - Portal Ibadah Mobile</title>
+    <title>Dokumentasi Portal Ibadah</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            /* Indigo 500 */
+            --primary-dark: #4338ca;
+            --primary-light: #e0e7ff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --bg-sidebar: #0f172a;
+            /* Slate 900 (Dark Sidebar) */
+            --bg-content: #ffffff;
+            --sidebar-text: #94a3b8;
+            --sidebar-text-hover: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        aside {
+            width: 280px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 768px) {
+            aside {
+                display: none;
+            }
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-left: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        nav a {
+            display: block;
+            padding: 0.6rem 0.75rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--sidebar-text-hover);
+        }
+
+        nav .section-title {
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #475569;
+            /* Slate 600 */
+            letter-spacing: 1.5px;
+            margin: 2rem 0 0.75rem 0.75rem;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            margin-left: 280px;
+            background: var(--bg-content);
+            padding: 4rem 5rem;
+            max-width: 1000px;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                margin-left: 0;
+                padding: 2rem;
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 3.5rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            color: #1e293b;
+            letter-spacing: -0.025em;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: #334155;
+        }
+
+        p {
+            line-height: 1.75;
+            color: #475569;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        ul {
+            line-height: 1.75;
+            color: #475569;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .version-card {
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: box-shadow 0.2s;
+            background: #ffffff;
+        }
+
+        .version-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border-color: #cbd5e1;
+        }
+
+        .version-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 1rem;
+        }
+
+        .version-num {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: #0f172a;
+        }
+
+        .version-date {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-family: monospace;
+        }
+
+        strong {
+            color: #334155;
+            font-weight: 600;
+        }
+
+        footer {
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+    </style>
 </head>
+
 <body>
 
-    <header>
-        <h1>Portal Ibadah Mobile APK</h1>
-        <p>Dokumentasi Resmi & Catatan Rilis</p>
-        <hr>
-    </header>
+    <aside>
+        <div class="logo">
+            PORTAL IBADAH
+        </div>
+        <nav>
+            <div class="section-title">Overview</div>
+            <ul>
+                <li><a href="#intro" class="active">Introduction</a></li>
+                <li><a href="#features">Key Features</a></li>
+                <li><a href="#tech-stack">Technical Stack</a></li>
+            </ul>
+
+            <div class="section-title">Changelog</div>
+            <ul>
+                <li><a href="#v1.1.6">Version 1.1.6 (Latest)</a></li>
+                <li><a href="#history">Version History</a></li>
+            </ul>
+
+            <div class="section-title">Legal</div>
+            <ul>
+                <li><a href="#privacy">Privacy Policy</a></li>
+            </ul>
+        </nav>
+    </aside>
 
     <main>
         <section id="intro">
-            <h2>Deskripsi</h2>
+            <span class="badge">Documentation v1.1.6</span>
+            <h1>Portal Ibadah Mobile</h1>
             <p>
-                Portal Ibadah Mobile adalah aplikasi Android native yang diadaptasi dari versi web Portal Ibadah. 
-                Aplikasi ini dirancang untuk memudahkan umat Muslim dalam beribadah dengan fitur seperti Al-Qur'an Digital, 
-                Jadwal Sholat, dan Kumpulan Doa.
+                Aplikasi mobile all-in-one yang komprehensif untuk kebutuhan ibadah harian Muslim Indonesia.
+                Dibuat dengan teknologi web modern dan dibungkus menjadi aplikasi native Android yang ringan, cepat, dan
+                mengutamakan privasi pengguna.
+            </p>
+            <p>
+                Dokumentasi ini mencakup fitur, panduan instalasi (APK Master), dan catatan rilis (changelog) yang
+                lengkap untuk setiap pembaruan aplikasi.
             </p>
         </section>
 
-        <section id="download">
-            <h2>Download & Instalasi</h2>
-            <p><strong>Cara Install file .apk:</strong></p>
-            <ol>
-                <li>Download file APK terbaru dari link yang diberikan.</li>
-                <li>Buka file tersebut di HP Android Anda.</li>
-                <li>Jika muncul peringatan keamanan, izinkan instalasi dari <em>"Unknown Sources"</em> (Sumber Tidak Dikenal).</li>
-                <li>Tunggu hingga proses instalasi selesai.</li>
-            </ol>
-        </section>
-
-        <section id="changelog">
-            <h2>Catatan Rilis (Changelog)</h2>
-
-            <h3>Versi 1.1.0 (Terbaru)</h3>
+        <section id="features">
+            <h2>Fitur Utama</h2>
             <ul>
-                <li>
-                    <strong>Custom Prayer Alarms:</strong> Fitur baru untuk menambahkan jadwal alarm manual. 
-                    Anda bisa membuat hingga 5 alarm tambahan (misal untuk Sholat Tahajud atau Dhuha).
-                </li>
-                <li>
-                    <strong>Perbaikan Tanggal Hijriyah:</strong> Memperbaiki bug di mana nama bulan Hijriyah tidak sesuai (misal Juli terbaca Rajab). 
-                    Sekarang menggunakan algoritma kalender yang lebih akurat.
-                </li>
-                <li>
-                    <strong>Optimasi Izin (Permissions):</strong> Perbaikan pada cara aplikasi meminta izin Notifikasi dan Lokasi agar lebih stabil di Android versi baru.
-                </li>
-            </ul>
-
-            <h3>Versi 1.0.0</h3>
-            <ul>
-                <li>Rilis perdana aplikasi.</li>
-                <li>Fitur: Al-Qur'an 30 Juz, Jadwal Sholat Real-time, Doa Harian.</li>
-                <li>Mode Gelap & Terang.</li>
+                <li><strong>Al-Qur'an Digital:</strong> Akses lengkap 30 Juz dan 114 Surah dengan terjemahan Bahasa
+                    Indonesia serta audio murottal berkualitas tinggi per ayat dan per surah.</li>
+                <li><strong>Jadwal Sholat Akurat:</strong> Perhitungan waktu sholat presisi untuk 500+ kota di Indonesia
+                    menggunakan data terpercaya Kemenag/MyQuran API, dilengkapi countdown waktu sholat berikutnya.</li>
+                <li><strong>Kumpulan Hadits:</strong> Koleksi hadits pilihan dari Shahih Bukhari disajikan dalam format
+                    kartu yang mudah dibaca dan elegan.</li>
+                <li><strong>Doa Harian:</strong> Himpunan doa-doa penting untuk berbagai aktivitas sehari-hari.</li>
+                <li><strong>Notifikasi Adzan:</strong> Sistem pengingat waktu sholat otomatis berbasis lokasi (Fitur
+                    Native Android).</li>
+                <li><strong>Pengalaman Tanpa Iklan:</strong> Fokus beribadah tanpa gangguan iklan pop-up atau banner
+                    yang mengganggu kekhusyukan.</li>
             </ul>
         </section>
 
         <section id="tech-stack">
-            <h2>Informasi Teknis</h2>
+            <h2>Technology Stack</h2>
+            <p>Aplikasi ini dikembangkan menggunakan stack teknologi open-source modern untuk menjamin performa dan
+                kemudahan pemeliharaan:</p>
             <ul>
-                <li><strong>Framework:</strong> Next.js 14</li>
-                <li><strong>Engine:</strong> Capacitor 5 (Android)</li>
+                <li><strong>Framework:</strong> Next.js 16 (React Framework)</li>
                 <li><strong>Styling:</strong> Tailwind CSS</li>
+                <li><strong>Native Runtime:</strong> Capacitor v6 (Android Bridge)</li>
+                <li><strong>OTA Updates:</strong> Capgo Cloud (Live Updates Deployment)</li>
+                <li><strong>Data Sources:</strong> eQuran.id, MyQuran API, Hadith API.</li>
             </ul>
         </section>
 
-        <section id="support">
-            <h2>Bantuan & Kontak</h2>
-            <p>Jika Anda menemukan bug atau memiliki saran, silakan hubungi pengembang:</p>
+        <section id="v1.1.6">
+            <h2>Latest Release: v1.1.6</h2>
+            <div class="version-card" style="border-left: 4px solid var(--primary);">
+                <div class="version-header">
+                    <span class="version-num">v1.1.6 - UI Polish & Hadits Redesign</span>
+                    <span class="version-date">15 Jan 2026</span>
+                </div>
+                <ul>
+                    <li><strong>New Hadits UI:</strong> Tampilan halaman hadits didesain ulang menggunakan layout kartu
+                        (card-based) yang lebih bersih, rapi, dan modern, menyerupai layout aplikasi Al-Qur'an
+                        profesional.</li>
+                    <li><strong>Scrollable Wisdom:</strong> Kartu "Hikmah Hari Ini" di beranda kini dilengkapi dengan
+                        container scrollable otomatis, memastikan teks hadits yang panjang tidak merusak tatanan layout
+                        halaman utama.</li>
+                    <li><strong>Web Notification Fix:</strong> Perbaikan pada manajemen notifikasi saat aplikasi
+                        dijalankan di lingkungan web browser untuk meminimalisir error console selama pengembangan.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="history">
+            <h2>Version History</h2>
+
+            <div class="version-card">
+                <div class="version-header">
+                    <span class="version-num">v1.1.5</span>
+                    <span class="version-date">15 Jan 2026</span>
+                </div>
+                <ul>
+                    <li><strong>Carousel Stabilization:</strong> Mekanisme animasi carousel diperbarui dari continuous
+                        scroll menjadi interval slide untuk stabilitas visual dan performa yang lebih baik.</li>
+                    <li><strong>Menu Integration:</strong> Menambahkan shortcut menu Hadits secara permanen pada Grid
+                        Menu Beranda dan Sidebar Navigasi Mobile.</li>
+                </ul>
+            </div>
+
+            <div class="version-card">
+                <div class="version-header">
+                    <span class="version-num">v1.1.4</span>
+                    <span class="version-date">15 Jan 2026</span>
+                </div>
+                <ul>
+                    <li><strong>Auto-scroll Carousel:</strong> Implementasi fitur auto-scroll pada banner fitur di
+                        beranda untuk interaktivitas yang lebih dinamis.</li>
+                    <li><strong>Online Hadith API:</strong> Integrasi langsung dengan API Hadits eksternal untuk
+                        menyajikan konten "Hikmah Hari Ini" yang selalu baru dan relevan secara real-time.</li>
+                    <li><strong>Custom Background:</strong> Optimalisasi fitur ganti background, memastikan foto
+                        pengguna tersimpan dan diterapkan dengan benar pada Hero Card.</li>
+                    <li><strong>Smart Back Button (Android):</strong> Penambahan logika konfirmasi "Tekan sekali lagi
+                        untuk keluar" saat pengguna berada di halaman Beranda untuk mencegah aplikasi tertutup tidak
+                        sengaja.</li>
+                </ul>
+            </div>
+
+            <div class="version-card">
+                <div class="version-header">
+                    <span class="version-num">v1.1.3</span>
+                    <span class="version-date">14 Jan 2026</span>
+                </div>
+                <ul>
+                    <li><strong>Voice Search:</strong> Fitur inovatif pencarian surah menggunakan perintah suara
+                        (Speech-to-Text).</li>
+                    <li><strong>Settings Page:</strong> Halaman pengaturan terpusat untuk manajemen izin sistem dan
+                        preferensi tampilan.</li>
+                    <li><strong>Camera Integration:</strong> Integrasi Native Camera untuk mengambil foto sampul
+                        aplikasi secara langsung.</li>
+                </ul>
+            </div>
+
+            <div class="version-card">
+                <div class="version-header">
+                    <span class="version-num">v1.1.0 - v1.1.2</span>
+                    <span class="version-date">Jan 2026</span>
+                </div>
+                <ul>
+                    <li><strong>Native Adzan Notification:</strong> Implementasi sistem notifikasi lokal Android untuk
+                        pengingat waktu sholat.</li>
+                    <li><strong>Bug Fixes & Refinements:</strong> Perbaikan bug pada pemilihan kota, paginasi doa, dan
+                        penyempurnaan mode gelap (Dark Mode).</li>
+                </ul>
+            </div>
+
+            <div class="version-card">
+                <div class="version-header">
+                    <span class="version-num">v1.0.0 - Initial Release</span>
+                    <span class="version-date">Jan 2026</span>
+                </div>
+                <ul>
+                    <li>Rilis perdana dengan fitur inti: Al-Qur'an Digital, Jadwal Sholat, dan Koleksi Doa.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="privacy">
+            <h2>Privacy Policy</h2>
+            <p>
+                <strong>Portal Ibadah</strong> berkomitmen penuh menjaga privasi pengguna. Aplikasi ini beroperasi
+                dengan prinsip "Local-First".
+            </p>
             <ul>
-                <li>Email: salman06az@gmail.com</li>
-                <li>GitHub: <a href="https://github.com/RA-122140131-MuhammadSalmanAzizi">RA-122140131-MuhammadSalmanAzizi</a></li>
+                <li><strong>Data Lokasi:</strong> Hanya diproses secara lokal di perangkat pengguna untuk kebutuhan
+                    kalkulasi jadwal sholat yang akurat. Tidak ada data lokasi yang dikirim ke server.</li>
+                <li><strong>Akses Kamera & Penyimpanan:</strong> Hanya diminta jika Anda memilih untuk menggunakan fitur
+                    personalisasi background. Foto tetap berada di penyimpanan perangkat Anda.</li>
+                <li><strong>Akses Mikrofon:</strong> Hanya aktif saat pengguna menekan tombol pencarian suara. Data
+                    audio diproses oleh layanan *Speech Recognition* bawaan OS dan tidak disimpan oleh aplikasi kami.
+                </li>
             </ul>
         </section>
+
+        <footer>
+            &copy; 2026 Portal Ibadah Docs by Muhammad Salman Azizi. All rights reserved.
+        </footer>
     </main>
 
-    <footer>
-        <hr>
-        <p><small>&copy; 2026 Portal Ibadah. Dibuat oleh Salman.</small></p>
-    </footer>
+    <script>
+        const sections = document.querySelectorAll('section');
+        const navLi = document.querySelectorAll('aside nav ul li a');
 
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLi.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').includes(current)) {
+                    a.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>
